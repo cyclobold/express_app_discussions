@@ -7,6 +7,33 @@ const PORT = 3000;
 server.use(cors());
 server.use(express.json());
 
+
+const users = [
+    {
+        "firstname": "James",
+        "othername": "John",
+        "email": "james@email.com"
+    }, 
+
+    {
+        "firstname": "Jerry",
+        "othername": "Jude",
+        "email": "jerry@email.com"
+
+    }, 
+
+    {
+        "firstname": "Mat",
+        "othername": "Jane",
+        "email": "jane@email.com"
+    }
+
+
+]
+
+
+
+
 //Routes
 server.get("/about-us", function(request, response){
     //console.log(request.path)
@@ -32,6 +59,31 @@ server.post("/submit-registration", function(request, response){
             password: userPassword
         }
     });
+})
+
+
+server.get("/get-users", function(request, response){
+
+    
+
+    if(request.query.email != null){
+        email = request.query.email
+
+        for(let i = 0; i < users.length; i++){
+            if(users[i].email === email){
+                users_array = [];
+                users_array.push(users[i]);
+                response.send(users_array);
+                break;
+            }
+        }
+
+    }else{
+        response.send(users)
+    }
+
+    
+
 })
 
 
